@@ -1,0 +1,22 @@
+https://github.com/EntySec/CamOver
+
+ What is CamOver?
+
+CamOver is an open-source tool by EntySec, described as a “camera exploitation tool” that can extract/admin-login credentials from certain network-connected cameras. It targets typically network cameras (CCTV, IP cameras, etc.), especially models or firmware that store credentials or configuration in accessible files. 
+
+The tool tries to access a camera’s internal config file — e.g. a path like /system.ini?loginuse&loginpas. If the camera exposes that file over HTTP (or a similar interface), CamOver reads it and extracts plaintext credentials (username/password). It works with many popular vulnerable camera brands/protocols, such as “CCTV, GoAhead, Netwave” as per its documentation. CamOver supports multiple modes: 
+Exploit single camera by specifying its address. 
+Exploit multiple cameras concurrently (via threading) by feeding it a list of addresses. 
+Use public-exposure search engines (via APIs like Shodan or ZoomEye) to find potentially vulnerable cameras on the internet — then try to pull credentials from all found devices.
+
+It provides both a command-line interface (CLI) and also exposes a Python API if we would want to use it programmatically in scripts.
+
+What makes it work (and when it won’t work)
+
+ It is predicated on the camera's firmware or web interface being improperly configured or insecure; more precisely, it assumes that the credential file (or a comparable configuration endpoint) is network-accessible and unrestricted by authentication.
+
+ If the camera has up-to-date security (no exposed config files, proper authentication, firewall, etc.), CamOver will likely fail.  —  it depends on mis-configurations / vulnerabilities.
+
+ Simply using CamOver won't reach the camera if it is protected by a network firewall, only accessible locally, or requires a VPN.
+
+ Using Shodan or ZoomEye to locate cameras on the public Internet may yield a large number of random devices; the likelihood that a camera is truly vulnerable may be minimal.
